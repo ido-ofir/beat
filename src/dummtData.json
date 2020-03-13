@@ -1,0 +1,112 @@
+{
+  "diagram": {
+    "x": 9.434892984942024,
+    "y": -18.70260425829369,
+    "zoom": 1.105021694675861
+  },
+  "nodes": [
+    {
+      "id": "node-3",
+      "type": "speaker",
+      "title": "Output",
+      "x": 297.38068239882637,
+      "y": 237.67045447317514,
+      "data": {},
+      "ports": [
+        {
+          "id": "port-1",
+          "links": [
+            "4dd8d5a8-9160-463d-bb10-8bd94d5f466a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-1",
+      "type": "sample",
+      "x": 32,
+      "y": 207,
+      "title": "Node 4",
+      "data": {
+        "url": "http://localhost:8080/sound-1.mp3"
+      },
+      "ports": [
+        {
+          "id": "port-1",
+          "links": [
+            "4dd8d5a8-9160-463d-bb10-8bd94d5f466a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "filter-1",
+      "type": "filter",
+      "x": 133,
+      "y": 90,
+      "title": "Filter 1",
+      "data": {
+        "type": "notch",
+        "frequency": 440
+      },
+      "ports": [
+        {
+          "id": "port-1",
+          "links": []
+        },
+        {
+          "id": "port-2",
+          "links": [
+            "30fa6250-86c9-489d-961b-6ef2db9686a0"
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "type": "link",
+      "fromPort": [
+        "sample-1",
+        "port-1"
+      ],
+      "toPort": [
+        "node-3",
+        "port-1"
+      ],
+      "startPoint": {
+        "x": 109.99999871978297,
+        "y": 253.49999959767655
+      },
+      "endPoint": {
+        "x": 307.37499161834427,
+        "y": 262.656253212848
+      },
+      "curvyness": 5,
+      "points": [],
+      "id": "4dd8d5a8-9160-463d-bb10-8bd94d5f466a"
+    },
+    {
+      "type": "link",
+      "fromPort": [
+        "filter-1",
+        "port-2"
+      ],
+      "toPort": null,
+      "startPoint": {
+        "x": 296.0000017369101,
+        "y": 109.50000037990434
+      },
+      "endPoint": null,
+      "curvyness": 5,
+      "points": [
+        {
+          "x": 453.89616279179313,
+          "y": 158.0988003222321,
+          "id": "ab8ffb0e-fc6e-4bda-b7f4-cd9adcc900eb"
+        }
+      ],
+      "id": "30fa6250-86c9-489d-961b-6ef2db9686a0"
+    }
+  ]
+}

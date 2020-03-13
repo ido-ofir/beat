@@ -1,0 +1,39 @@
+{
+  "name": "beat",
+  "version": "1.0.0",
+  "description": "A web audio playground on a react diagram",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ido-ofir/beat.git"
+  },
+  "keywords": [
+    "beat",
+    "react",
+    "diagram"
+  ],
+  "author": "ido-ofir",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ido-ofir/beat/issues"
+  },
+  "homepage": "https://github.com/ido-ofir/beat#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@storybook/react": "^5.3.14",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  }
+}
