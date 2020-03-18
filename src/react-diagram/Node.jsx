@@ -13,7 +13,7 @@ export default class Node extends React.Component{
         let { diagram, node } = this.props;
         diagram.setNode({
             id: node.id,
-            data
+            data: { ...node.data, ...data }
         }, updateLinks);
     };
     renderDefault = () => {
@@ -30,13 +30,13 @@ export default class Node extends React.Component{
         )
     };
     render(){
-        let { diagram, node, selected } = this.props;
+        let { diagram, node, selected, widgets, getNodeProps } = this.props;
         let { id, x, y, title, ports = [], type } = node;
         let NodeWidget;
         if(type){
-            let nodeWidgets = diagram.props.widgets?.nodes;
-            NodeWidget = nodeWidgets && nodeWidgets[type];
+            NodeWidget = widgets && widgets[type];
         }
+        let props = getNodeProps ? getNodeProps(node) : {};
         return (
             <div 
                 style={{ 
@@ -58,6 +58,7 @@ export default class Node extends React.Component{
                             diagram={diagram} 
                             node={node} 
                             setData={this.setData}
+                            {...props}
                         /> 
                         : 
                         this.renderDefault()

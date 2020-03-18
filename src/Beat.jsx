@@ -1,11 +1,7 @@
 import React from 'react';
 import Diagram, { Port } from './react-diagram';
 import dummyData from './dummtData.json';
-import BeatContext from './BeatContext';
 import Engine from './engine';
-
-window.top.Diagram = Diagram;
-window.top.Port = Port;
 
 export default class Beat extends React.Component{
     constructor(props){
@@ -47,18 +43,22 @@ export default class Beat extends React.Component{
             }
         }
     };
+
+    getNodeProps = (node) => {
+        return {
+            element: this.engine.getElement(node.id)
+        };
+    };
     
     render(){
         return (
             <div style={{ height: '100%', width: '100%'}}>
-                <BeatContext.Provider value={this}>
-                    <Diagram
-                        beat={this}
-                        data={dummyData}
-                        onEvent={this.onEvent}
-                        widgets={this.engine.getWidgets()}
-                        style={{ background: '#222'}}/>
-                </BeatContext.Provider>
+                <Diagram
+                    data={dummyData}
+                    onEvent={this.onEvent}
+                    widgets={this.engine.getWidgets()}
+                    getNodeProps={this.getNodeProps}
+                    style={{ background: '#222'}}/>
             </div>
         );
     }

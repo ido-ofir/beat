@@ -1,10 +1,8 @@
 
 import React from 'react';
-import { Port } from '../../react-diagram';
-import BeatContext from '../../BeatContext';
+import { Port } from '../../../react-diagram';
 
 export default class FilterWidget extends React.Component{
-    static contextType = BeatContext;
     render(){
         let { diagram, node, setData } = this.props;
         let { id, x, y, title, ports = [], data } = node;

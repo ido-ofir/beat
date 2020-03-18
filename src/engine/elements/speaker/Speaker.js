@@ -12,16 +12,4 @@ export default class Speaker {
         
         this.node = node;
     };
-    connectIn = (node) => {
-
-        // update
-        
-        this.node = node;
-    };
-    connectOut = (node) => {
-
-        // update
-        
-        this.node = node;
-    };
 }

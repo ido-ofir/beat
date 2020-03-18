@@ -1,5 +1,6 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import utils from './utils.js';
 
 import Node from './Node';
@@ -10,8 +11,17 @@ class Nodes extends React.Component{
         return (props.nodes !== this.props.nodes) || (props.selected !== this.props.selected);
     }
     render(){
-        let {nodes, diagram, selected} = this.props;
-        return nodes.map(node => <Node node={node} key={node.id} diagram={diagram} selected={selected[node.id]}/>);
+        let {nodes, diagram, selected, getNodeProps, widgets} = this.props;        
+        return nodes.map(node => 
+            <Node 
+                node={node} 
+                key={node.id} 
+                diagram={diagram} 
+                selected={selected[node.id]}
+                widgets={widgets}
+                getNodeProps={getNodeProps}
+            />
+        );
     }
 }
 
@@ -26,6 +36,13 @@ class Links extends React.Component{
 }
 
 export default class Diagram extends React.Component{
+    static propTypes = {
+        data: PropTypes.object,
+        onEvent: PropTypes.func,
+        widgets: PropTypes.object,
+        getNodeProps: PropTypes.func,
+        style: PropTypes.object,
+    };
     static defaultProps = {
         data: {
             diagram: {x:0, y:0,zoom:1},
@@ -699,7 +716,7 @@ export default class Diagram extends React.Component{
     };
     render(){
         let {data, selected} = this.state;
-        let {style} = this.props;
+        let {widgets, getNodeProps, style} = this.props;
         let {nodes = [], links = [], diagram} = data;
         let {x,y,zoom} = diagram;
         let transform = `translate(${x}px,${y}px) scale(${zoom})`;
@@ -724,7 +741,13 @@ export default class Diagram extends React.Component{
                     {links.length ? <Links ref="links" links={links} selected={selected.links} diagram={this}/> : null}
                 </div>
                 <div style={{ position: 'absolute', transform }}>
-                    <Nodes ref="nodes" nodes={nodes} selected={selected.nodes} diagram={this}/>
+                    <Nodes 
+                        ref="nodes" 
+                        nodes={nodes} 
+                        selected={selected.nodes}
+                        getNodeProps={getNodeProps}
+                        widgets={widgets.nodes}
+                        diagram={this}/>
                 </div>
                 {/* <div style={{position: 'absolute', top: 0, left: 100}}>
                     x: <input type="number" style={{width: 40 }}value={x} onChange={e => this.setData(['diagram', 'x'], parseInt(e.target.value))}/>

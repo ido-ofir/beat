@@ -6,17 +6,37 @@
   },
   "nodes": [
     {
+      "id": "node-4",
+      "type": "mic",
+      "title": "Mic",
+      "x": 449.4138965967429,
+      "y": 112.33158544018906,
+      "data": {
+        "active": false
+      },
+      "ports": [
+        {
+          "id": "port-1",
+          "links": [
+            "4dd8d5a8-9160-463d-bb10-8bd94d5f466a",
+            "f66acf16-acb6-47de-8f3d-a349b75412aa"
+          ]
+        }
+      ]
+    },
+    {
       "id": "node-3",
       "type": "speaker",
       "title": "Output",
-      "x": 297.38068239882637,
-      "y": 237.67045447317514,
+      "x": 449.4138965967429,
+      "y": 212.33158544018906,
       "data": {},
       "ports": [
         {
           "id": "port-1",
           "links": [
-            "4dd8d5a8-9160-463d-bb10-8bd94d5f466a"
+            "4dd8d5a8-9160-463d-bb10-8bd94d5f466a",
+            "f66acf16-acb6-47de-8f3d-a349b75412aa"
           ]
         }
       ]
@@ -24,17 +44,19 @@
     {
       "id": "sample-1",
       "type": "sample",
-      "x": 32,
-      "y": 207,
+      "x": 26.570242350074402,
+      "y": 182.56609057533504,
       "title": "Node 4",
       "data": {
-        "url": "http://localhost:8080/sound-1.mp3"
+        "url": "http://localhost:8080/samples/kick-1.mp3",
+        "loop": true
       },
       "ports": [
         {
           "id": "port-1",
           "links": [
-            "4dd8d5a8-9160-463d-bb10-8bd94d5f466a"
+            "4dd8d5a8-9160-463d-bb10-8bd94d5f466a",
+            "4aa6fc05-817f-44fc-ac0c-57b6f0ab199d"
           ]
         }
       ]
@@ -42,9 +64,35 @@
     {
       "id": "filter-1",
       "type": "filter",
-      "x": 133,
-      "y": 90,
+      "x": 183.67773806597225,
+      "y": 127.10334394115831,
       "title": "Filter 1",
+      "data": {
+        "type": "notch",
+        "frequency": 18009
+      },
+      "ports": [
+        {
+          "id": "port-1",
+          "links": [
+            "4aa6fc05-817f-44fc-ac0c-57b6f0ab199d"
+          ]
+        },
+        {
+          "id": "port-2",
+          "links": [
+            "30fa6250-86c9-489d-961b-6ef2db9686a0",
+            "f66acf16-acb6-47de-8f3d-a349b75412aa"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "delay-1",
+      "type": "delay",
+      "x": 182.7727784576513,
+      "y": 179.77277845765155,
+      "title": "delay 1",
       "data": {
         "type": "notch",
         "frequency": 440
@@ -56,9 +104,49 @@
         },
         {
           "id": "port-2",
-          "links": [
-            "30fa6250-86c9-489d-961b-6ef2db9686a0"
-          ]
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "reverb-1",
+      "type": "reverb",
+      "x": 182.7727784576513,
+      "y": 229.77277845765155,
+      "title": "reverb 1",
+      "data": {
+        "type": "notch",
+        "frequency": 440
+      },
+      "ports": [
+        {
+          "id": "port-1",
+          "links": []
+        },
+        {
+          "id": "port-2",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "oscillator-1",
+      "type": "oscillator",
+      "x": 182.7727784576513,
+      "y": 269.77277845765155,
+      "title": "oscillator 1",
+      "data": {
+        "type": "sine",
+        "frequency": 440
+      },
+      "ports": [
+        {
+          "id": "port-1",
+          "links": []
+        },
+        {
+          "id": "port-2",
+          "links": []
         }
       ]
     }
@@ -71,20 +159,20 @@
         "port-1"
       ],
       "toPort": [
-        "node-3",
+        "filter-1",
         "port-1"
       ],
       "startPoint": {
-        "x": 109.99999871978297,
-        "y": 253.49999959767655
+        "x": 106.56249923590072,
+        "y": 247.06249811633833
       },
       "endPoint": {
-        "x": 307.37499161834427,
-        "y": 262.656253212848
+        "x": 193.67187629937936,
+        "y": 146.59374735256
       },
       "curvyness": 5,
       "points": [],
-      "id": "4dd8d5a8-9160-463d-bb10-8bd94d5f466a"
+      "id": "4aa6fc05-817f-44fc-ac0c-57b6f0ab199d"
     },
     {
       "type": "link",
@@ -92,21 +180,21 @@
         "filter-1",
         "port-2"
       ],
-      "toPort": null,
-      "startPoint": {
-        "x": 296.0000017369101,
-        "y": 109.50000037990434
-      },
-      "endPoint": null,
-      "curvyness": 5,
-      "points": [
-        {
-          "x": 453.89616279179313,
-          "y": 158.0988003222321,
-          "id": "ab8ffb0e-fc6e-4bda-b7f4-cd9adcc900eb"
-        }
+      "toPort": [
+        "node-3",
+        "port-1"
       ],
-      "id": "30fa6250-86c9-489d-961b-6ef2db9686a0"
+      "startPoint": {
+        "x": 346.67188496166636,
+        "y": 146.59374735256
+      },
+      "endPoint": {
+        "x": 459.40624499679706,
+        "y": 237.32812726114966
+      },
+      "curvyness": 5,
+      "points": [],
+      "id": "f66acf16-acb6-47de-8f3d-a349b75412aa"
     }
   ]
 }

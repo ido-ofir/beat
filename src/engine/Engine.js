@@ -1,12 +1,20 @@
 
-import {Sample, SampleWidget} from './sample';
-import {Speaker, SpeakerWidget} from './speaker';
-import {Filter, FilterWidget} from './filter';
+import {Sample, SampleWidget} from './elements/sample';
+import {Speaker, SpeakerWidget} from './elements/speaker';
+import {Mic, MicWidget} from './elements/mic';
+import {Filter, FilterWidget} from './elements/filter';
+import {Delay, DelayWidget} from './elements/delay';
+import {Reverb, ReverbWidget} from './elements/reverb';
+import {Oscillator, OscillatorWidget} from './elements/oscillator';
 
 let types = {
     sample: Sample,
     speaker: Speaker,
+    mic: Mic,
     filter: Filter,
+    delay: Delay,
+    reverb: Reverb,
+    oscillator: Oscillator,
 };
 export default class Engine {
     constructor(diagramData){
@@ -31,7 +39,11 @@ export default class Engine {
             nodes: {
                 sample: SampleWidget,
                 speaker: SpeakerWidget,
+                mic: MicWidget,
                 filter: FilterWidget,
+                delay: DelayWidget,
+                reverb: ReverbWidget,
+                oscillator: OscillatorWidget,
             }
         }
     }

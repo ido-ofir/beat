@@ -1,11 +1,10 @@
 
 import React from 'react';
-import { Port } from '../../react-diagram';
+import { Port } from '../../../react-diagram';
 
 export default class SpeakerWidget extends React.Component{
     render(){
         let { diagram, node } = this.props;
-        window.top.Sample = this;
         let { id, x, y, title, ports = [] } = node;
         return (
             <div style={{ display: 'flex' }}>

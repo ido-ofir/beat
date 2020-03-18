@@ -1,12 +1,14 @@
 
 
-export default class Delay {
+export default class Reverb {
     constructor(audioContext, node){
         this.audioContext = audioContext;
+        audioContext.audioWorklet.addModule('http://localhost:8080/processors/reverb-processor.js').then((err) => {
+            if(err){ throw err; }
+            this.element = new AudioWorkletNode(audioContext, 'reverb-processor')
+        })
         this.node = node;
         this.connections = {};
-        this.element = audioContext.createDelay(node?.data?.time || 0.5);
-        
     }
     
     connect = (id, element) => {
@@ -21,10 +23,6 @@ export default class Delay {
 
     update = (node) => {
         let data = node.data || {};
-        let oldData = this.node.data || {};
-        if(data.time !== oldData.time){
-            this.element.delayTime.setValueAtTime(data.time, this.audioContext.currentTime);
-        }
         this.node = node;
     };
 }
