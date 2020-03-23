@@ -13,7 +13,7 @@ export default class MicWidget extends React.Component{
                     <div style={{ display: 'flex', alignItems: 'center', fontSize: '32px', padding: '4px 4px 4px 10px' }}>
                     🎤
                     </div>
-                    <div>
+                    <div data-ignore>
                         Active <input type="checkbox" checked={data.active} onChange={e => setData({active: e.target.checked})}/>
                     </div>
                 </div>

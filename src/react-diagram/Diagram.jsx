@@ -73,6 +73,7 @@ export default class Diagram extends React.Component{
     }
 
     componentDidMount(){
+        window.top.diagram = this;
         document.addEventListener('mouseup', this.onMouseUp);
         document.addEventListener('mousemove', this.onMouseMove);
         let data = this.props.data || {};

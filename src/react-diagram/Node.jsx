@@ -2,8 +2,8 @@
 import React from 'react';
 import Port from './Port';
 
-export default class Node extends React.Component{
-    shouldComponentUpdate(props, state){
+export default class Node extends React.Component {
+    shouldComponentUpdate(props, state) {
         return (props.node !== this.props.node) || (props.selected !== this.props.selected);
     }
     getBoundingRect = () => {
@@ -22,45 +22,60 @@ export default class Node extends React.Component{
             <>
                 <div style={{ whiteSpace: 'nowrap', padding: 10 }}>{node.title}</div>
                 <div>
-                    {node.ports.map(port => 
-                        <Port key={port.id} port={port} diagram={diagram}/>
+                    {node.ports.map(port =>
+                        <Port key={port.id} port={port} diagram={diagram} />
                     )}
                 </div>
             </>
         )
     };
-    render(){
+    render() {
         let { diagram, node, selected, widgets, getNodeProps } = this.props;
         let { id, x, y, title, ports = [], type } = node;
         let NodeWidget;
-        if(type){
+        if (type) {
             NodeWidget = widgets && widgets[type];
         }
         let props = getNodeProps ? getNodeProps(node) : {};
         return (
-            <div 
-                style={{ 
+            <div
+                style={{
                     cursor: 'move',
                     position: 'absolute',
                     top: y,
                     left: x,
-                    userSelect: 'none',
-                    // border: `2px solid ${selected ? 'rgba(100,100,255)' : 'transparent'}`,
+                    userSelect: 'none',                    
                     background: '#fff',
-                    boxShadow: selected ? "rgba(0,0,255,0.9) 0px 0px 6px 6px" : 'none'
+                    padding: 2
+                    // boxShadow: selected ? "rgba(0,0,255,0.9) 0px 0px 6px 6px" : 'none'
                 }}
                 ref="node"
                 unselectable="on"
                 data-node-id={id}>
                 {
-                    NodeWidget ? 
-                        <NodeWidget 
-                            diagram={diagram} 
-                            node={node} 
+                    selected ? (
+                        <div
+                            style={{
+                                position: 'absolute',
+                                top: -3,
+                                right: -3,
+                                left: -3,
+                                bottom: -3,
+                                border: `4px solid blue`,
+                                borderRadius: 4
+                            }}>
+                        </div>
+                    ) : null
+                }
+                {
+                    NodeWidget ?
+                        <NodeWidget
+                            diagram={diagram}
+                            node={node}
                             setData={this.setData}
                             {...props}
-                        /> 
-                        : 
+                        />
+                        :
                         this.renderDefault()
                 }
             </div>

@@ -32,11 +32,18 @@ export default class Oscillator {
             for(let m in this.connections){
                 this.element.connect(this.connections[m]);
             }
+            this.element.start();
+            this.isStarted = true;
         }
-        this.element.start();
+        else if(!this.isStarted){
+            this.element.start();
+            this.isStarted = true;
+        }
     };
     stop = () => {
-        this.element.stop();
+        if(this.isStarted){
+            this.element.stop();
+        }
         for(let m in this.connections){
             this.element.disconnect(this.connections[m]);
         }
@@ -44,10 +51,14 @@ export default class Oscillator {
     };
     connect = (id, element) => {
         this.connections[id] = element.element;
-        this.element.connect(element.element);
+        if(this.element){
+            this.element.connect(element.element);
+        }
     };
     disconnect = (id) => {
-        this.element.disconnect(this.connections[id]);
+        if(this.element){
+            this.element.disconnect(this.connections[id]);
+        }
         delete this.connections[id];
     };
 }
