@@ -12,6 +12,7 @@
 
     --outset-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     --inset-shadow: rgba(0, 0, 0, 0.12) 2px 4px 3px inset, rgba(0, 0, 0, 0.24) 0px 1px 2px inset;
+    --text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.35);
     --button-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
 
@@ -19,6 +20,11 @@
 
 input:focus {
     outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
 }
 
 .diagram {
@@ -62,6 +68,7 @@ input:focus {
     background: var(--primary-color);
     border: 4px solid var(--secondary-color);
     cursor: grabbing;
+    pointer-events: all;
 }
 .number_selector {
     display: flex;
@@ -78,7 +85,7 @@ input:focus {
 .number_selector_input {
     color: var(--secondary-color);
     border-radius: 4px;
-    width: 30px;
+    width: 35px;
     box-shadow: rgba(45, 84, 123, 0.18) 13px 8px 3px inset, rgba(84, 123, 156, 0.25) 0px 1px 2px inset;
     background: var(--primary-color);
     padding: 3px;
@@ -101,7 +108,9 @@ input:focus {
     padding: 10px;
     font-size: 36px;
     color: var(--secondary-color);
+    text-shadow: var(--text-shadow);
     text-align: center;
+    white-space: nowrap;
 }
 .module .sub_title {
     color: var(--primary-color);
@@ -112,7 +121,6 @@ input:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
 }
 .module select {
     border: none;
@@ -187,22 +195,24 @@ input:focus {
     align-items: center;
     justify-content: space-between;
     z-index: 1;
+    pointer-events: none;
 }
 
 .osc {
     width: 200px;
-    height: 320px;
+    height: 270px;
     background: var(--color1);
 }
 
 .analyzer {
     width: 200px;
-    height: 190px;
+    height: 170px;
     background: var(--color5);
 }
 
 .analyzer .controls_section{
-    top: 45%;
+    top: 40%;
+    height: 60%;
 }
 
 .analyzer_canvas {
@@ -220,12 +230,13 @@ input:focus {
 
 .sampler {
     width: 200px;
-    height: 190px;
+    height: 180px;
     background: var(--color7);
 }
 
 .sampler .controls_section{
     top: 40%;
+    height: 60%;
 }
 
 .sampler .loop_container {
@@ -236,4 +247,17 @@ input:focus {
 
 .sampler .loop_container input {
     margin: 0px 5px 0px 0px;
+}
+
+.keyboard {
+    padding: 10px;
+    background: var(--primary-color);
+    width: 500px;
+    font-size: 0px;
+}
+.keyboard_controller {
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: default;
+    display: inline-block;
 }

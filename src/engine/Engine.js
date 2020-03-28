@@ -7,6 +7,7 @@ import {Delay, DelayWidget} from './elements/delay';
 import {Reverb, ReverbWidget} from './elements/reverb';
 import {Oscillator, OscillatorWidget} from './elements/oscillator';
 import {Analyzer, AnalyzerWidget} from './elements/analyzer';
+import {Keyboard, KeyboardWidget} from './elements/keyboard';
 
 let types = {
     sample: Sample,
@@ -16,7 +17,8 @@ let types = {
     delay: Delay,
     reverb: Reverb,
     oscillator: Oscillator,
-    analyzer: Analyzer
+    analyzer: Analyzer,
+    keyboard: Keyboard
 };
 export default class Engine {
     constructor(diagramData){
@@ -46,7 +48,8 @@ export default class Engine {
                 delay: DelayWidget,
                 reverb: ReverbWidget,
                 oscillator: OscillatorWidget,
-                analyzer: AnalyzerWidget
+                analyzer: AnalyzerWidget,
+                keyboard: KeyboardWidget
             }
         }
     }

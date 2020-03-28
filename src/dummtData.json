@@ -167,6 +167,23 @@
           "links": []
         }
       ]
+    },
+    {
+      "id": "keyboard-1",
+      "type": "keyboard",
+      "x": 148.038905683958,
+      "y": 314.2755529489461,
+      "title": "keyboard 1",
+      "data": {
+        "type": "sine",
+        "frequency": 440
+      },
+      "ports": [
+        {
+          "id": "port-1",
+          "links": []
+        }
+      ]
     }
   ],
   "links": [

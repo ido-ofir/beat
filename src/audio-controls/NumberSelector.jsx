@@ -15,7 +15,7 @@ export default class NumberSelector extends React.Component {
     }
     
     render() {
-        let { defaultValue, min, max, step, label, ...rest } = this.props;
+        let { min, max, step, label, ...rest } = this.props;
         return (
             <div className='number_selector'>
                 <span className='number_selector_label'>{label}</span>
@@ -23,7 +23,6 @@ export default class NumberSelector extends React.Component {
                     ref={this.inputRef}
                     type="number" 
                     className='number_selector_input' 
-                    defaultValue={defaultValue || 0} 
                     min={min || 0} 
                     max={max || 10} 
                     step={step || 1} 
