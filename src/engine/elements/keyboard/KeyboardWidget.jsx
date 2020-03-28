@@ -10,6 +10,7 @@ export default class KeyboardWidget extends React.Component{
 
         return (
             <div className='module keyboard'>
+                <span className='keyboard_title'>Keyboard</span>
                 <div className='keyboard_controller'>
                     <webaudio-keyboard keys="25" ></webaudio-keyboard>
                 </div>

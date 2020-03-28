@@ -261,3 +261,13 @@ input[type=number]::-webkit-outer-spin-button {
     cursor: default;
     display: inline-block;
 }
+
+.keyboard_title {
+    font-size: 20px;
+    color: var(--secondary-color);
+    text-shadow: var(--text-shadow);
+    position: absolute;
+    top: 37px;
+    right: -24px;
+    transform: rotate(90deg);
+}
