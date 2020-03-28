@@ -2,6 +2,7 @@
 import React from 'react';
 import { Port } from '../../../react-diagram';
 import Knob from '../../../audio-controls/Knob';
+import NumberSelector from '../../../audio-controls/NumberSelector';
 
 let types = [
     {
@@ -32,7 +33,7 @@ export default class OscillatorWidget extends React.Component{
             <div className='module osc'>
                 <div className='title'>Oscillator</div>
                 <div className='knob_wrapper'>
-                    <Knob
+                    {/* <Knob
                         src="/images/LittlePhatty.png" 
                         sprites="100"
                         min={1} 
@@ -40,8 +41,10 @@ export default class OscillatorWidget extends React.Component{
                         step={1}
                         value={data.frequency || 440}
                         callback={setData} 
-                    />
-                    <span className='sub_title'>Frequency</span>
+                    /> */}
+                    <NumberSelector label="Octave" defaultValue={0} min={-3} max={5} step={1} />
+                    <NumberSelector label="Note" defaultValue={0} min={0} max={12} step={1} />
+                    {/* <span className='sub_title'>Frequency</span> */}
                 </div>
                 <div className='controls_section'>
                     <div data-ignore className='controls_wrapper'>

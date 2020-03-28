@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #222;
+    --primary-color: #0e1d2e;
     --secondary-color: #fbdc31;
     --light-color: #fff;
     --color1: #b34242;
@@ -16,6 +16,11 @@
 }
 
 *{ font-family: 'Lobster', cursive; }
+
+input:focus {
+    outline: none;
+}
+
 .diagram {
     background: var(--color4);
     width: 100%;
@@ -58,6 +63,32 @@
     border: 4px solid var(--secondary-color);
     cursor: grabbing;
 }
+.number_selector {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    min-width: 100px;
+    justify-content: space-between;
+}
+.number_selector_label {
+    margin-right: 10px;
+    font-size: 18px;
+    color: var(--light-color);
+}
+.number_selector_input {
+    color: var(--secondary-color);
+    border-radius: 4px;
+    width: 30px;
+    box-shadow: rgba(45, 84, 123, 0.18) 13px 8px 3px inset, rgba(84, 123, 156, 0.25) 0px 1px 2px inset;
+    background: var(--primary-color);
+    padding: 3px;
+    border: 1px solid var(--color6);
+    font-family: 'Orbitron', sans-serif;
+    user-select: none;
+    font-weight: 600;
+    font-size: 11px;
+}
+
 .module {
     background: var(--light-color);
     overflow: hidden;
@@ -166,7 +197,7 @@
 
 .analyzer {
     width: 200px;
-    height: 180px;
+    height: 190px;
     background: var(--color5);
 }
 
@@ -179,7 +210,7 @@
     width: calc(100% - 66px);
     position: absolute;
     left: 30px;
-    margin-top: 15px;
+    margin-top: 17px;
     height: 45px;
     border: 3px solid var(--color4);
     border-radius: 4px;
@@ -189,7 +220,7 @@
 
 .sampler {
     width: 200px;
-    height: 200px;
+    height: 190px;
     background: var(--color7);
 }
 

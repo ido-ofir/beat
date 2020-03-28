@@ -2,23 +2,29 @@
 import React from 'react';
 
 export default class Knob extends React.Component {
-    
-    componentDidMount() {
-        let { callback } = this.props;
 
-        var knobs = document.getElementsByTagName('webaudio-knob');
-        for (var i = 0; i < knobs.length; i++) {
-        var knob = knobs[i];
-        knob.addEventListener('input', function(e) {
-            callback({ frequency: parseInt(e.target.value)})
-        });
-        }
+    constructor(props) {
+        super(props);
+
+        this.knobRef = React.createRef();
+    }
+    
+    componentDidMount = () => {
+        this.knobRef['current'].addEventListener('input', this.onKnobChange);
+    }
+    componentWillUnmount = () => {
+        this.knobRef['current'].removeEventListener('input', this.onKnobChange);
+    }
+
+    onKnobChange = (e) => {
+        this.props.callback({ frequency: parseInt(e.target.value)});
     }
     
     render() {
         let { value, step, min, max, sprites, src, ...rest } = this.props;
         return (
             <webaudio-knob 
+                ref={this.knobRef}
                 data-ignore 
                 src={src}
                 sprites={sprites || 100}
