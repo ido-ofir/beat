@@ -30,35 +30,31 @@ export default class SampleWidget extends React.Component{
         let { diagram, node, setData } = this.props;
         let { id, data, title, ports = [] } = node;
         return (
-            <div style={{ display: 'flex' }}>
-                
-                <div>
-                    <div style={{ padding: 10 }}>Sample</div>
-                    <div data-ignore>
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <select value={data.url} onChange={e => setData({url: e.target.value})}>
-                                {
-                                    samples.map(sample => 
-                                        <option key={sample.src} value={sample.src}>{sample.label}</option>    
-                                    )
-                                }
-                            </select>
-                        </div>
-                        <div data-ignore style={{ display: 'flex', justifyContent: 'center' }}>
-                            <button onClick={this.play}>Play</button>
-                            <button onClick={this.stop}>Stop</button>
-                        </div>
-                        <div data-ignore style={{ display: 'flex', justifyContent: 'center' }}>
-                            Loop <input type="checkbox" checked={data.loop} onChange={e => setData({ loop: e.target.checked })}/>
+            <div className='module sampler'>
+                <div className='title'>Sampler</div>
+
+                <div className='controls_section'>
+                    <div data-ignore className='controls_wrapper'>
+                        <select value={data.url} onChange={e => setData({url: e.target.value})}>
+                            { samples.map(sample => <option key={sample.src} value={sample.src}>{sample.label}</option>) }
+                        </select>
+                        <div className='loop_container'>
+                            <input type="checkbox" checked={data.loop} onChange={e => setData({ loop: e.target.checked })}/>
+                            Loop
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', fontSize: '28px'}}>
-                        🎼
+                    <div data-ignore className='controls_wrapper'>
+                        <button onClick={this.play} className='play_btn'>&#9658;</button>
+                        <button onClick={this.stop}  className='stop_btn'>&#9724;</button>
                     </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {ports.map(port => 
-                            <Port key={port.id} port={port} diagram={diagram}/>
+                <div className='ports_container'>
+                    <div className='port_container'></div>
+                    {ports.map((port, idx) => 
+                        <div key={port.id} className='port_container'>
+                            <span className='port_name'>out</span>
+                            <Port port={port} diagram={diagram}/>
+                        </div>
                     )}
                 </div>
             </div>

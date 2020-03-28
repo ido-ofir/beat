@@ -25,7 +25,7 @@ export default class Port extends React.Component{
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
                 data-port-id={port.id}
-                style={{width: 20, height: 20, background: hovered ? 'green' : 'blue'}}>
+                className='port'>
 
             </div>
         );

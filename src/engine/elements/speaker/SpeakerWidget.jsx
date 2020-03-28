@@ -6,6 +6,7 @@ export default class SpeakerWidget extends React.Component{
     render(){
         let { diagram, node } = this.props;
         let { id, x, y, title, ports = [] } = node;
+
         return (
             <div style={{ display: 'flex' }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>

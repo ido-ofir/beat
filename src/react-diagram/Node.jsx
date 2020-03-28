@@ -39,33 +39,13 @@ export default class Node extends React.Component {
         let props = getNodeProps ? getNodeProps(node) : {};
         return (
             <div
-                style={{
-                    cursor: 'move',
-                    position: 'absolute',
-                    top: y,
-                    left: x,
-                    userSelect: 'none',                    
-                    background: '#fff',
-                    padding: 2
-                    // boxShadow: selected ? "rgba(0,0,255,0.9) 0px 0px 6px 6px" : 'none'
-                }}
+                style={{ top: y, left: x, zIndex: selected ? 1 : 0 }}
                 ref="node"
                 unselectable="on"
+                className='node'
                 data-node-id={id}>
                 {
-                    selected ? (
-                        <div
-                            style={{
-                                position: 'absolute',
-                                top: -3,
-                                right: -3,
-                                left: -3,
-                                bottom: -3,
-                                border: `4px solid blue`,
-                                borderRadius: 4
-                            }}>
-                        </div>
-                    ) : null
+                    selected ? <div className='node_selected'></div> : null
                 }
                 {
                     NodeWidget ?

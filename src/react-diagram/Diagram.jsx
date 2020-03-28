@@ -717,7 +717,7 @@ export default class Diagram extends React.Component{
     };
     render(){
         let {data, selected} = this.state;
-        let {widgets, getNodeProps, style} = this.props;
+        let {widgets, getNodeProps, style={}} = this.props;
         let {nodes = [], links = [], diagram} = data;
         let {x,y,zoom} = diagram;
         let transform = `translate(${x}px,${y}px) scale(${zoom})`;
@@ -725,18 +725,12 @@ export default class Diagram extends React.Component{
             <div 
                 ref="root"
                 data-canvas
-                style={{
-                    width: '100%', 
-                    height: '100%', 
-                    flex: 1, 
-                    position: 'relative',
-                    overflow: 'hidden',
-                    ...style                  
-                }}
+                style={style}
                 onMouseDown={this.onMouseDown}
                 onKeyDown={this.onKeyDown}
                 onWheel={this.onMouseWheel}
                 tabIndex="0"
+                className='diagram'
             >
                 <div style={{ position: 'absolute', transform }}>
                     {links.length ? <Links ref="links" links={links} selected={selected.links} diagram={this}/> : null}

@@ -1,0 +1,1 @@
+import '!style-loader!css-loader!./main.css';

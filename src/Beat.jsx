@@ -57,8 +57,7 @@ export default class Beat extends React.Component{
                     data={dummyData}
                     onEvent={this.onEvent}
                     widgets={this.engine.getWidgets()}
-                    getNodeProps={this.getNodeProps}
-                    style={{ background: '#222'}}/>
+                    getNodeProps={this.getNodeProps} />
             </div>
         );
     }

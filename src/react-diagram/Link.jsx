@@ -7,9 +7,9 @@ export default class Link extends React.Component{
     }
     render(){
         let {diagram, link, selected} = this.props;
-        let { id, startPoint, endPoint, points = [], className, strokeWidth = "3", stroke = "rgba(255,255,255,0.5)", curvyness = 0 } = link;
+        let { id, startPoint, endPoint, points = [], className, strokeWidth = "3", stroke = "#222", curvyness = 0 } = link;
         if(selected){
-            stroke = "rgba(0,0,255,0.9)"
+            stroke = "#222"
         }
         let pointsToRender = [startPoint, ...points, endPoint];
         let lines = [];
@@ -47,7 +47,7 @@ export default class Link extends React.Component{
                         cx={point.x} 
                         cy={point.y} 
                         r="12" 
-                        style={{fill: "rgba(255,255,255,0.05)", pointerEvents: 'all', cursor: 'move'}}>
+                        style={{fill: "rgba(255,255,255,0.05)", pointerEvents: 'all', cursor: 'grabbing'}}>
                     </circle>,
                     <circle 
                         key={i} 

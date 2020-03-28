@@ -16,11 +16,11 @@ export default class AnalyzerWidget extends React.Component{
         let { element } = this.props;
         let dataArray = element.getByteTimeDomainData();
         
-        this.ctx.fillStyle = 'rgb(200, 200, 200)';
+        this.ctx.fillStyle = '#f5f5f5';
         this.ctx.fillRect(0, 0, WIDTH, HEIGHT);
   
         this.ctx.lineWidth = 2;
-        this.ctx.strokeStyle = 'rgb(0, 0, 0)';
+        this.ctx.strokeStyle = '#2ead8a';
   
         this.ctx.beginPath();
   
@@ -49,17 +49,19 @@ export default class AnalyzerWidget extends React.Component{
         let { diagram, node, setData, element } = this.props;
         let { id, data, title, ports = [] } = node;
         return (
-            <div style={{  }}>
-                
+            <div className='module analyzer'>
                 <div>
-                    <div style={{ padding: 10 }}>Analyzer</div>
-                    <div style={{ padding: 10 }}>
-                        <canvas ref={el => this.canvas = el} width={WIDTH} height={HEIGHT}></canvas>
+                    <div className='title'>Analyzer</div>
+                    <div className='controls_section'>
+                        <canvas ref={el => this.canvas = el} className='analyzer_canvas' width={WIDTH} height={HEIGHT}></canvas>
                     </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    {ports.map(port => 
-                            <Port key={port.id} port={port} diagram={diagram}/>
+                <div className='ports_container'>
+                    {ports.map((port, idx) => 
+                        <div key={port.id} className='port_container'>
+                            <span className='port_name'>{idx === 0 ? 'in' : 'out'}</span>
+                            <Port port={port} diagram={diagram}/>
+                        </div>
                     )}
                 </div>
             </div>
