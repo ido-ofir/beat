@@ -64,7 +64,8 @@ export default class Diagram extends React.Component{
             selected: {
                 nodes: {},
                 links: {}
-            }
+            },
+            isSmartRoute: true
         };
         this.onEvent({
             type: 'nodesWillMount',
@@ -84,18 +85,30 @@ export default class Diagram extends React.Component{
             type: 'nodesDidMount',
             nodes: data.nodes || []
         });
+
+        this.nodesIndex = data.nodes.reduce((nodesIndex, node) => {
+            let element = document.querySelector(`[data-node-id=${node.id}]`);
+            nodesIndex[node.id] = {
+                node,
+                element,
+                boundingBox: element.getBoundingClientRect()
+            }
+            return nodesIndex;
+        }, {})
     }
 
     componentDidUpdate(){
         let nodeKeys = Object.keys(this.updatedNodes);
         let pointKeys = Object.keys(this.updatedPoints);
-        let {data} = this.state;
+        let { data, isSmartRoute} = this.state;
         let linksToUpdate = {};
 
         // if nodes have updated
         if(nodeKeys.length){ 
             // should any links be updated because of node movement?   
-            nodeKeys.map(key => {                
+            nodeKeys.map(key => {
+                this.nodesIndex[key].boundingBox = this.nodesIndex[key].element.getBoundingClientRect();
+
                 let node = this.updatedNodes[key];
                 (node.ports || []).map(port => {
                     (port.links || []).map(id => linksToUpdate[id] = 1)
@@ -119,27 +132,71 @@ export default class Diagram extends React.Component{
         if(Object.keys(linksToUpdate).length){
             // loop through all existing links
             this.setData(['links'], links => links.map(link => {
-                // if a link shoud be re-rendered 
-                if(linksToUpdate[link.id]){                    
-                    // update the start and end points of the link
-                    // to match the position of ports that it connects to
-                    let startPoint = this.getPortCenter(...link.fromPort);
-                    let endPoint = link.toPort ? this.getPortCenter(...link.toPort) : null;
-                    let points = (link.points || []).map(point => {
-                        let movedPoint = this.updatedPoints[`${link.id}:${point.id}`];
-                        if(movedPoint){
-                            return { ...point, x: movedPoint.x, y: movedPoint.y };
+                // if a link shoud not be re-rendered 
+                if (!linksToUpdate[link.id]) return link 
+                
+                // update the start and end points of the link
+                // to match the position of ports that it connects to
+                let startPoint = this.getPortCenter(...link.fromPort);
+                let endPoint = link.toPort ? this.getPortCenter(...link.toPort) : null;
+
+                let points = (link.points || []).map(point => {
+                    let movedPoint = this.updatedPoints[`${link.id}:${point.id}`];
+                    if (!movedPoint) return point;
+
+                    return { ...point, x: movedPoint.x, y: movedPoint.y, isStatic: true };
+                });
+                if (isSmartRoute) {
+                    let staticPoints = points.filter(p => p.isStatic);
+                    points = []
+
+                    for (let i = 0; i < staticPoints.length + 1; i++) {
+                        const prevPoint = staticPoints[i - 1] || startPoint;
+                        const point = staticPoints[i] || endPoint;
+
+                        const setPoint = (orientation, p1, p2) => {
+                            let newPoints = [];
+                            const altOrientation = orientation === 'x' ? 'y' : 'x';
+                            if (p1 && p2) {
+                                let value = p2[orientation];
+                                if (orientation === 'x') {
+                                    if (p2.direction) {
+                                        if (p2.direction === 'right') {
+                                            value = Math.max(value, p2[orientation] + 50)
+                                        }
+                                        else {
+                                            value = Math.min(value, p2[orientation] - 50)
+                                        }
+                                    }
+                                    if (p1.direction) {
+                                        if (p1.direction === 'right') {
+                                            value = Math.max(value, p1[orientation] + 50)
+                                        }
+                                        else {
+                                            value = Math.min(value, p1[orientation] - 50)
+                                        }
+                                    }
+                                }
+                                if (p1[orientation] !== p2[orientation] || value !== p2[orientation]) {
+                                    let newPoint = utils.withId({ x: p1.x, y: p1.y, [orientation]: value });
+                                    newPoints.push(newPoint);
+                                    let nextPoints = setPoint(orientation, p2, newPoint);
+                                    newPoints.push(...nextPoints.reverse());
+                                }
+                            }
+                            return newPoints;
                         }
-                        return point;
-                    });
-                    return {
-                        ...link, 
-                        startPoint,
-                        endPoint,
-                        points
-                    };
+                        
+                        points.push(...setPoint('x', prevPoint, point));
+                        if (i < staticPoints.length) points.push(point);
+                    }
                 }
-                return link;
+                return {
+                    ...link, 
+                    startPoint,
+                    endPoint,
+                    points
+                };
             }));
         }
         this.updatedNodes = {};
@@ -156,6 +213,10 @@ export default class Diagram extends React.Component{
             this.props.onEvent(...args);
         }
     };
+
+    setNodeBoundingBox = (id, boundingBox) => {
+
+    }
 
     moveItems = (action) => {
         this.setState({
@@ -713,7 +774,7 @@ export default class Diagram extends React.Component{
         let zoom = data.diagram.zoom;
         let x = (position.x - data.diagram.x) / zoom;
         let y = (position.y - data.diagram.y) / zoom;
-        return {x, y};
+        return { x, y, direction: this.nodesIndex[nodeId].node.ports.find(p => p.id === portId).direction};
     };
     render(){
         let {data, selected} = this.state;
