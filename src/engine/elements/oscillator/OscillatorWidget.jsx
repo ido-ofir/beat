@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Port } from '../../../react-diagram';
-// import Knob from '../../../audio-controls/Knob';
+import Knob from '../../../audio-controls/Knob';
 import NumberSelector from '../../../audio-controls/NumberSelector';
 
 let types = [
@@ -33,55 +33,48 @@ export default class OscillatorWidget extends React.Component{
             note: 0
         }
         this.baseFreq = 440;
-        this.oct = 0;
-        this.note = 0;
     }
 
-    handleOctave = (e) => {
+    handleFreqChange = (octave, note) => {
         let { setData } = this.props;
-        let oct = e.target.value;
-        let freq = oct < 0 && this.oct < 0 ? (oct > this.oct ? this.baseFreq / 2 : this.baseFreq  * 2) : (oct > this.oct ? this.baseFreq * 2 : this.baseFreq  / 2);
-        this.baseFreq = freq;
-        this.oct = oct;
+        octave = parseInt(octave, 10);
+        note = parseInt(note, 10);
+        let octaveSemitones = octave * 12;
+        let semitones = octaveSemitones + note;
 
-        this.setState({ octave: oct});
-        setData({frequency: freq});
-    }
-
-    handleNote = (e) => {
-        let { setData } = this.props;
-        let note = e.target.value;
-       
+        let freq = this.baseFreq * Math.pow(2, semitones/12);
+        console.log(freq)
         
-        // this.baseFreq = freq;
-        // this.note = note;
-
-        this.setState({ note });
-        // setData({frequency: freq});
+        this.setState({ octave, note });
+        setData({frequency: freq});
     }
 
     render(){
         let { diagram, node, setData, element } = this.props;
         let { octave, note } = this.state;
         let { id, data, title, ports = [] } = node;
-        console.log(this.baseFreq)
 
         return (
             <div className='module osc'>
                 <div className='title'>Oscillator</div>
-                <div className='knob_wrapper'>
-                    <NumberSelector label="Octave" onChange={this.handleOctave} value={octave} min={-3} max={3} step={1} />
-                    <NumberSelector label="Note" onChange={this.handleNote} value={note} min={0} max={11} step={1} />
-                    {/* <Knob
-                        src="/images/LittlePhatty.png" 
-                        sprites="100"
-                        min={0} 
-                        max={11}
-                        step={1}
-                        value={note}
-                        callback={this.handleNote} 
-                    /> */}
-                    {/* <span className='sub_title'>Frequency</span> */}
+                <div className='contros_wrapper'>
+                    <NumberSelector label="Octave" onChange={e => this.handleFreqChange(e.target.value, note)} value={octave} min={-3} max={3} step={1} />
+                    {/* <NumberSelector label="Note" onChange={e => this.handleFreqChange(octave, e.target.value)} value={note} min={-11} max={11} step={1} /> */}
+                    <div className="osc_knob_wrapper">
+                        <span className='osc_knob_label'>Note</span>
+                        <div className="knob_wrapper">
+                            <Knob
+                                src="/images/JP8000.png" 
+                                sprites="100"
+                                min={-12} 
+                                max={12}
+                                step={1}
+                                value={note}
+                                callback={data => this.handleFreqChange(octave, data.value)} 
+                            />
+                            <span className="knob_label">{note}</span>
+                        </div>
+                    </div>
                 </div>
                 <div className='controls_section'>
                     <div data-ignore className='controls_wrapper'>

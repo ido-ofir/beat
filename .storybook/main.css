@@ -2,7 +2,7 @@
     --primary-color: #0e1d2e;
     --secondary-color: #fbdc31;
     --light-color: #fff;
-    --color1: #b34242;
+    --color1: #bf3c3c;
     --color2: #3cc50f;
     --color3: #ff5c1e;
     --color4: #d4d3ce;
@@ -34,6 +34,7 @@ input[type=number]::-webkit-outer-spin-button {
     flex: 1 1 0%;
     position: relative;
     overflow: hidden;
+    cursor: grab;
 }
 .node {
     cursor: grab;
@@ -74,7 +75,7 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    min-width: 100px;
+    min-width: 106px;
     justify-content: space-between;
 }
 .number_selector_label {
@@ -94,6 +95,27 @@ input[type=number]::-webkit-outer-spin-button {
     user-select: none;
     font-weight: 600;
     font-size: 11px;
+}
+
+.knob_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.knob_label {
+    color: var(--secondary-color);
+    border-radius: 4px;
+    box-shadow: rgba(45, 84, 123, 0.18) 13px 8px 3px inset, rgba(84, 123, 156, 0.25) 0px 1px 2px inset;
+    background: var(--primary-color);
+    padding: 1px 3px;
+    border: 1px solid var(--color6);
+    font-family: 'Orbitron', sans-serif;
+    user-select: none;
+    font-weight: 600;
+    font-size: 11px;
+    width: 20px;
+    margin-top: 3px;
 }
 
 .module {
@@ -117,7 +139,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 18px;
     margin-top: 5px;
 }
-.module .knob_wrapper {
+.module .contros_wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -149,9 +171,9 @@ input[type=number]::-webkit-outer-spin-button {
 .module .controls_section {
     width: 100%;
     position: absolute;
-    top: 60%;
+    top: 65%;
     left: 0px;
-    height: 40%;
+    height: 35%;
     padding-top: 5px;
 }
 
@@ -200,8 +222,21 @@ input[type=number]::-webkit-outer-spin-button {
 
 .osc {
     width: 200px;
-    height: 270px;
+    height: 320px;
     background: var(--color1);
+}
+
+.osc_knob_wrapper {
+    display: flex;
+    margin-top: 10px;
+    min-width: 106px;
+}
+
+.osc_knob_label {
+    margin-right: 24px;
+    margin-left: 14px;
+    font-size: 18px;
+    color: var(--light-color);
 }
 
 .analyzer {
@@ -230,7 +265,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .sampler {
     width: 200px;
-    height: 180px;
+    height: 170px;
     background: var(--color7);
 }
 

@@ -17,7 +17,7 @@ export default class Knob extends React.Component {
     }
 
     onKnobChange = (e) => {
-        this.props.callback({ frequency: parseInt(e.target.value)});
+        this.props.callback({ value: parseInt(e.target.value)});
     }
     
     render() {
