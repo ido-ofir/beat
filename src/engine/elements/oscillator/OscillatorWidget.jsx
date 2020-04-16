@@ -43,7 +43,6 @@ export default class OscillatorWidget extends React.Component{
         let semitones = octaveSemitones + note;
 
         let freq = this.baseFreq * Math.pow(2, semitones/12);
-        console.log(freq)
         
         this.setState({ octave, note });
         setData({frequency: freq});
@@ -61,19 +60,19 @@ export default class OscillatorWidget extends React.Component{
                     <NumberSelector label="Octave" onChange={e => this.handleFreqChange(e.target.value, note)} value={octave} min={-3} max={3} step={1} />
                     {/* <NumberSelector label="Note" onChange={e => this.handleFreqChange(octave, e.target.value)} value={note} min={-11} max={11} step={1} /> */}
                     <div className="osc_knob_wrapper">
-                        <span className='osc_knob_label'>Note</span>
                         <div className="knob_wrapper">
-                            <Knob
-                                src="/images/JP8000.png" 
-                                sprites="100"
-                                min={-12} 
-                                max={12}
-                                step={1}
-                                value={note}
-                                callback={data => this.handleFreqChange(octave, data.value)} 
-                            />
+                            <span className='osc_knob_label'>Note</span>
                             <span className="knob_label">{note}</span>
                         </div>
+                        <Knob
+                            src="/images/JP8000.png" 
+                            sprites="100"
+                            min={-12} 
+                            max={12}
+                            step={1}
+                            value={note}
+                            callback={data => this.handleFreqChange(octave, data.value)} 
+                        />
                     </div>
                 </div>
                 <div className='controls_section'>

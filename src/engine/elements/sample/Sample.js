@@ -13,20 +13,19 @@ export default class Sample {
     play = (time) => {
         this.stop();
         if(this.buffer){
+            // this.source = new AudioBufferSourceNode(this.audioContext, this.buffer);
             this.source = this.audioContext.createBufferSource();
             this.source.buffer = this.buffer;
             this.source.loop = this.node.data.loop || false;
-            this.source.start(time);
+            this.source.start(0, time);
             for(var key in this.connections){
                 this.source.connect(this.connections[key]);
             }
         }
     };
     
-    stop = (time = 0) => {
-        if(this.source){
-            this.source.stop();
-        }
+    stop = () => {
+        if(this.source) this.source.stop();
     };
 
     connect = (id, element) => {

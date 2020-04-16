@@ -21,17 +21,18 @@ export default class Knob extends React.Component {
     }
     
     render() {
-        let { value, step, min, max, sprites, src, ...rest } = this.props;
+        let { value, step, min, max, diameter, sprites, src, ...rest } = this.props;
         return (
             <webaudio-knob 
                 ref={this.knobRef}
                 data-ignore 
                 src={src}
                 sprites={sprites || 100}
-                min={min || 1} 
+                min={min || 0} 
                 max={max}
                 step={step || 1}
                 value={value}
+                diameter={diameter || 64}
                 { ...rest }
             />
         );
