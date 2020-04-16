@@ -354,13 +354,13 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 
 .sampler {
     width: 200px;
-    height: 230px;
+    height: 210px;
     background: var(--color7);
 }
 
 .sampler .controls_section{
-    top: 40%;
-    height: 60%;
+    top: 35%;
+    height: 65%;
 }
 
 .sampler .loop_container {
