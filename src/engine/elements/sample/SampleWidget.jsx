@@ -27,11 +27,11 @@ export default class SampleWidget extends React.Component{
         };
     }
 
-    play = (e, time=0) => {
+    play = (e, time = 0) => {
         let { element } = this.props;
         if(element){
-            element.play(time*1);
-            this.startClock();
+            element.play(time * 1);
+            this.startClock(time * 1);
         }
     };
     stop = () => {
@@ -48,31 +48,39 @@ export default class SampleWidget extends React.Component{
         this.setState({ currentTime: skipToTime })
     };
 
-    startClock = () => {
+    startClock = (from) => {
+        let { element } = this.props;
+        this.startTime = element.audioContext.currentTime - from;
         if(this.clock) return;
-        this.clock = setInterval(this.updateTime, 1000);
+        this.clock = setInterval(this.updateTime, 100);
     };
 
     resetClock = () => {
-        this.setState({ currentTime: 0 });
         if(this.clock) {
             clearInterval(this.clock);
             this.clock = null;
         };
+        this.setState({ currentTime: 0 });
     };
 
     updateTime = () => {
         let { element, node } = this.props;
         let duration = element.buffer.duration;
         let isLooping = node.data.loop;
-        let { currentTime } = this.state;
+        let currentTime = element.audioContext.currentTime - this.startTime;
 
-        if(currentTime === parseInt(duration, 10)) {
-            if(isLooping) return this.setState({ currentTime: 0 });
+        if (!isLooping && currentTime >= duration) {
             return this.resetClock();
         }
-        this.setState({ currentTime: currentTime + 1 });
+        this.setState({ currentTime: currentTime % duration });
     };
+
+    changeSource = (e) => {
+        let { setData } = this.props;
+
+        this.stop();
+        setData({ url: e.target.value });
+    }
 
     render(){
         let { diagram, node, setData, element } = this.props;
@@ -85,7 +93,7 @@ export default class SampleWidget extends React.Component{
 
                 <div className='controls_section'>
                     <div data-ignore className='controls_wrapper'>
-                        <select value={data.url} onChange={e => setData({url: e.target.value})}>
+                        <select value={data.url} onChange={this.changeSource}>
                             { samples.map(sample => <option key={sample.src} value={sample.src}>{sample.label}</option>) }
                         </select>
                         <div className='loop_container'>
