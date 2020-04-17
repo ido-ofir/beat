@@ -86,7 +86,8 @@ export default class SampleWidget extends React.Component{
         let { diagram, node, setData, element } = this.props;
         let { currentTime } = this.state;
         let { id, data, title, ports = [] } = node;
-        
+        console.log(element, currentTime);
+
         return (
             <div className='module sampler'>
                 <div className='title'>Sampler</div>

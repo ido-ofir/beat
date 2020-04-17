@@ -45,7 +45,7 @@ export default class FilterWidget extends React.Component{
                         sprites="100"
                         min={27} 
                         max={20000}
-                        sensitivity={.5}
+                        sensitivity={.2}
                         step={1}
                         value={data.bypass ? this.currentValues.freq : data.frequency}
                         diameter={68}
