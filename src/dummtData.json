@@ -50,7 +50,7 @@
       "y": 117.44007912466012,
       "title": "Node 4",
       "data": {
-        "url": "http://localhost:8080/samples/kick-1.mp3",
+        "url": "http://localhost:8080/samples/Trance-Demo.mp3",
         "loop": true
       },
       "ports": [
@@ -71,8 +71,10 @@
       "y": 127.10334394115831,
       "title": "Filter 1",
       "data": {
-        "type": "notch",
-        "frequency": 18009
+        "filterType": "lowpass",
+        "frequency": 20000,
+        "resonance": 0,
+        "bypass": false
       },
       "ports": [
         {
@@ -89,52 +91,6 @@
             "30fa6250-86c9-489d-961b-6ef2db9686a0",
             "f66acf16-acb6-47de-8f3d-a349b75412aa"
           ]
-        }
-      ]
-    },
-    {
-      "id": "delay-1",
-      "type": "delay",
-      "x": 182.7727784576513,
-      "y": 179.77277845765155,
-      "title": "delay 1",
-      "data": {
-        "type": "notch",
-        "frequency": 440
-      },
-      "ports": [
-        {
-          "id": "port-1",
-          "direction": "left",
-          "links": []
-        },
-        {
-          "id": "port-2",
-          "direction": "right",
-          "links": []
-        }
-      ]
-    },
-    {
-      "id": "reverb-1",
-      "type": "reverb",
-      "x": 182.7727784576513,
-      "y": 229.77277845765155,
-      "title": "reverb 1",
-      "data": {
-        "type": "notch",
-        "frequency": 440
-      },
-      "ports": [
-        {
-          "id": "port-1",
-          "direction": "left",
-          "links": []
-        },
-        {
-          "id": "port-2",
-          "direction": "right",
-          "links": []
         }
       ]
     },

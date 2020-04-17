@@ -21,8 +21,10 @@ export default class Filter {
 
     update = (node) => {
         let data = node.data || {};
+        // console.log(data)
         this.element.type = data.filterType || 'lowpass';
         this.element.frequency.value = data.frequency || 440;
+        this.element.Q.value = data.resonance;
         this.node = node;
     };
 }
