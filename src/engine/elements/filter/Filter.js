@@ -6,7 +6,7 @@ export default class Filter {
         this.node = node;
         this.connections = {};
         this.element = audioContext.createBiquadFilter();
-        
+        this.update(this.node);
     }
     
     connect = (id, element) => {
@@ -21,7 +21,6 @@ export default class Filter {
 
     update = (node) => {
         let data = node.data || {};
-        // console.log(data)
         this.element.type = data.filterType || 'lowpass';
         this.element.frequency.value = data.frequency || 440;
         this.element.Q.value = data.resonance;

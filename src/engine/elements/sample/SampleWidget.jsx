@@ -25,7 +25,7 @@ export default class SampleWidget extends React.Component{
         this.state = {
             currentTime: 0
         };
-    }
+    };
 
     play = (e, time = 0) => {
         let { element } = this.props;
@@ -34,6 +34,7 @@ export default class SampleWidget extends React.Component{
             this.startClock(time * 1);
         }
     };
+
     stop = () => {
         let { element } = this.props;
         if(element){
@@ -80,7 +81,7 @@ export default class SampleWidget extends React.Component{
 
         this.stop();
         setData({ url: e.target.value });
-    }
+    };
 
     render(){
         let { diagram, node, setData, element } = this.props;
