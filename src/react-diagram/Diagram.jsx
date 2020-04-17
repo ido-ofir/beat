@@ -154,10 +154,17 @@ export default class Diagram extends React.Component{
                         const prevPoint = staticPoints[i - 1] || startPoint;
                         const point = staticPoints[i] || endPoint;
 
-                        const setPoint = (orientation, p1, p2) => {
+                        const findPath = (p1, p2, orientation) => {
+                            if (p1.direction) orientation = 'x';
                             let newPoints = [];
                             const altOrientation = orientation === 'x' ? 'y' : 'x';
                             if (p1 && p2) {
+                                if (!orientation) {
+                                    let a = findPath(p1, p2, 'x');
+                                    let b = findPath(p1, p2, 'y');
+                                    if (a.length <= b.length) return a;
+                                    return b
+                                }
                                 let value = p2[orientation];
                                 if (orientation === 'x') {
                                     if (p2.direction) {
@@ -177,17 +184,20 @@ export default class Diagram extends React.Component{
                                         }
                                     }
                                 }
-                                if (p1[orientation] !== p2[orientation] || value !== p2[orientation]) {
-                                    let newPoint = utils.withId({ x: p1.x, y: p1.y, [orientation]: value });
+                                let newPoint = utils.withId({ x: p1.x, y: p1.y, [orientation]: value });
+                                if ((newPoint[altOrientation] !== p2[altOrientation]) || ((value - p1[orientation]) * (value - p2[orientation]) > 0)) {
+                                    // if (p1[orientation] !== p2[orientation] || value !== p2[orientation]) {
                                     newPoints.push(newPoint);
-                                    let nextPoints = setPoint(orientation, p2, newPoint);
-                                    newPoints.push(...nextPoints.reverse());
+                                    // let nextPoints = findPath(p2, newPoint, orientation);
+                                    // newPoints.push(...nextPoints.reverse());
+                                    let nextPoints = findPath(newPoint, p2, altOrientation);
+                                    newPoints.push(...nextPoints);
                                 }
                             }
                             return newPoints;
                         }
                         
-                        points.push(...setPoint('x', prevPoint, point));
+                        points.push(...findPath(prevPoint, point));
                         if (i < staticPoints.length) points.push(point);
                     }
                 }
