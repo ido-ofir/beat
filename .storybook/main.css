@@ -354,7 +354,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 
 .sampler {
     width: 200px;
-    height: 210px;
+    height: 230px;
     background: var(--color7);
 }
 
@@ -373,13 +373,20 @@ input[type=range]:focus::-webkit-slider-runnable-track {
     margin: 0px 5px 0px 0px;
 }
 
+.sampler .knob_label {
+    min-width: 40px;
+    margin-left: 10px;
+}
+
 .sampler_seek_slider_container {
     position: relative;
     z-index: 1;
     display: flex;
     justify-content: center;
-    width: 75%;
+    width: 85%;
     margin: 20px auto;
+    height: 24px;
+    align-items: center;
 }
 
 .keyboard {

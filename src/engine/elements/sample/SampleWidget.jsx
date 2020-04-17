@@ -83,11 +83,22 @@ export default class SampleWidget extends React.Component{
         setData({ url: e.target.value });
     };
 
+    getTimer = (seconds) => {
+        var sec_num = parseInt(seconds, 10); // don't forget the second param
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        // if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        return minutes+':'+seconds;
+    };
+
     render(){
         let { diagram, node, setData, element } = this.props;
         let { currentTime } = this.state;
         let { id, data, title, ports = [] } = node;
-        console.log(element, currentTime);
 
         return (
             <div className='module sampler'>
@@ -105,6 +116,7 @@ export default class SampleWidget extends React.Component{
                     </div>
                     <div className="sampler_seek_slider_container">
                         <input className="slider" type="range" onChange={this.seek} min={0} max={element.buffer && element.buffer.duration || 0} value={currentTime} />
+                        <span className="knob_label">{this.getTimer(currentTime)}</span>
                     </div>
                     <div data-ignore className='controls_wrapper'>
                         <button onClick={this.play} className='play_btn'>&#9658;</button>
